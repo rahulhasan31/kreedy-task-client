@@ -10,7 +10,8 @@ const Login = () => {
   const provider = new GoogleAuthProvider();
   const fbProvider = new FacebookAuthProvider();
     const {loginUser, googleLogin, facebookLogin}=useContext(AuthContext)
-    const [loginUserEmail, setLoginUserEmail] = useState('');
+    const [loginUserEmail, setLoginUserEmail] = useState('')
+    
     const [token] = useToken(loginUserEmail);
     const navigate= useNavigate()
 
@@ -39,7 +40,18 @@ const Login = () => {
         )
 
      })
-     .catch(e=>console.log(e))
+     .catch(e=>{
+      const msg=e.message
+      
+      if (msg) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: `${msg}`,
+         
+        })
+      }
+     })
     }
 
     const handleGogleLogin=()=>{
@@ -102,7 +114,12 @@ const Login = () => {
           <label className="label">
           
             <Link to="/register" className="label-text-alt link link-hover  text-blue-400">Dont Have Account Signup Now</Link>
+            <br></br>
+           
           </label>
+          
+
+          
         </div>
         <div className="form-control mt-6 ">
        

@@ -31,7 +31,19 @@ const Register = () => {
             const user=result.user
             console.log(user);
         })
-        .catch(e=>console.log(e))
+        .catch(e=>{
+          const msg=e.message
+      
+          if (msg) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: `${msg}`,
+             
+            })
+          }
+        }
+          )
         fetch('https://new-task-server-plum.vercel.app/register', {
             method:"POST",
             headers:{
